@@ -14,10 +14,10 @@ httpServer.listen(3000, () => {
 });
 
 io.on('connect', socket => {
-  console.log('server: connect');
+  console.log('server: connect', socket.id);
 
-  socket.on('reconnect', data => {
-    console.log('server: reconnect', data);
+  socket.on('disconnect', data => {
+    console.log('server: disconnect', data);
   })
   // let counter = 0;
   // setInterval(() => {

@@ -18,19 +18,18 @@
     };
 
     const socket = io('', {
-        forceNew: true,
-        reconnectionDelayMax: 3000,
+        // forceNew: true,
         reconnection: true,
+        reconnectionDelayMax: 3000,
         reconnectionAttempts: 20
     });
 
     socket.on('connect', () => {
-        console.log('client: connect')
+        console.log('client: connect', socket.id);
     });
 
     socket.on('reconnect', (attemptNumber) => {
         console.log('client: reconnect ', attemptNumber);
-        // socket.emit('reconnect', 'reconnect');
     });
 
     // socket.on('hello', (counter) => {
