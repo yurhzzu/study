@@ -14,13 +14,17 @@ httpServer.listen(3000, () => {
 });
 
 io.on('connect', socket => {
-  console.log('connect');
-  let counter = 0;
-  setInterval(() => {
-    socket.emit('hello', ++counter);
-  }, 1000);
+  console.log('server: connect');
 
-  socket.on('hey', data => {
-    console.log('hey', data);
-  });
+  socket.on('reconnect', data => {
+    console.log('server: reconnect', data);
+  })
+  // let counter = 0;
+  // setInterval(() => {
+  //   socket.emit('hello', ++counter);
+  // }, 1000);
+  //
+  // socket.on('hey', data => {
+  //   console.log('hey', data);
+  // });
 });

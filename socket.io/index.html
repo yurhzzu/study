@@ -5,43 +5,44 @@
     <title>Minimal working example</title>
 </head>
 <body>
-    <ul id="events"></ul>
+<ul id="events"></ul>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-        const $events = document.getElementById('events');
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const $events = document.getElementById('events');
 
-        const newItem = (content) => {
-          const item = document.createElement('li');
-          item.innerText = content;
-          return item;
-        };
+    const newItem = (content) => {
+        const item = document.createElement('li');
+        item.innerText = content;
+        return item;
+    };
 
-        const socket = io('', { 
-		forceNew: true, 
-		reconnectionDelayMax: 3000,
-		reconnection: true,
-		reconnectionAttempts: 20
-	});
+    const socket = io('', {
+        forceNew: false,
+        reconnectionDelayMax: 3000,
+        reconnection: true,
+        reconnectionAttempts: 20
+    });
 
-        socket.on('connect', () => {
-          $events.appendChild(newItem('connect'));
-        });
-        
-        socket.on('hello', (counter) => {
-          $events.appendChild(newItem(`hello - ${counter}`));
-        });
+    socket.on('connect', () => {
+        console.log('client: connect')
+    });
 
-        socket.on('reconnect', (attemptNumber) => {
-          // ...
-	  console.log('reconnect ', attemptNumber);
-        });
+    socket.on('reconnect', (attemptNumber) => {
+        console.log('client: reconnect ', attemptNumber);
+        socket.emit('reconnect', 'reconnect');
+    });
 
-/*        let counter = 0;
-          setInterval(() => {
-          ++counter;
-          socket.emit('hey', { counter }); // the object will be serialized for you
-        }, 1000);*/
-    </script>
+    // socket.on('hello', (counter) => {
+    //     $events.appendChild(newItem(`hello - ${counter}`));
+    // });
+
+
+    /*        let counter = 0;
+              setInterval(() => {
+              ++counter;
+              socket.emit('hey', { counter }); // the object will be serialized for you
+            }, 1000);*/
+</script>
 </body>
 </html>
