@@ -18,7 +18,7 @@
     };
 
     const socket = io('', {
-        forceNew: false,
+        forceNew: true,
         reconnectionDelayMax: 3000,
         reconnection: true,
         reconnectionAttempts: 20
@@ -30,7 +30,7 @@
 
     socket.on('reconnect', (attemptNumber) => {
         console.log('client: reconnect ', attemptNumber);
-        socket.emit('reconnect', 'reconnect');
+        // socket.emit('reconnect', 'reconnect');
     });
 
     // socket.on('hello', (counter) => {
